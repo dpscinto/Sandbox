@@ -1,0 +1,171 @@
+<!-- Overlay Div -->
+<!--<div id="overlay" class="transparent">
+</div>-->
+
+<div id="wrapper" class="preload sidebar-hide" ng-controller="AccountCtrl">
+
+    <!-- =========================
+     SECTION: TOP NAVIGATION
+    ============================== -->
+    <div ng-include="'/components/account/topNav/topNav.html'"></div>
+
+
+    <!-- =========================
+     SECTION: LEFT NAVIGATION
+    ============================== -->
+    <div ng-include="'/components/account/leftNav/leftNav.html'"></div>
+
+
+    <div id="main-container" ng-cloak>
+        <!-- /breadcrumb-->
+        <div ng-include="'/components/account/topNav/header-msg.html'"></div>
+        <!-- /main-header -->
+         <div class="custom-sub-navbar">
+                <ul class="nav subnav nav-extra-top">
+                    <li>
+                        <a href="/dashboard">Dashboard</a>
+                    </li>
+                    <li class="active">
+                        <a href="/favorite/Restaurant">Your Favorites</a>
+                    </li>
+                    <li>
+                        <a href="/message_inbox">Messages</a>
+                    </li>
+                    <li>
+                        <a href="/edit-profile">Profile</a>
+                    </li>
+                    <li>
+                        <a href="/notifications">Account</a>
+                    </li>
+                </ul>
+            </div>
+
+
+        <div class="row text-center" style="color:#CCCCCC;margin-top:10px">
+            <div class="row" style="margin-top:15px;margin-bottom:15px">
+                <div class="col-md-1"></div>
+                <div class="col-md-7 col-sm-12">
+                    <input type="text" id="txt_place" placeholder="Save your favorite locations, activities, restaurants, etc." class="form-control" />
+                </div>
+                <div class="col-md-3 col-sm-12">
+                    <button class="btn btn-success" ng-click="setPlace()" style="width:100%">Add</button>
+                </div>
+            </div>
+        </div>
+        <!-- /grey-container -->
+
+        <div class="padding-md row">
+            <div id="map-canvas"></div>
+            <div class="row">
+                <div class="col-md-1"></div>
+                <div class="col-md-10 location_table">
+                    <h2>Saved Locations</h2>
+                    <div class="row" style="border-top:1px solid #CCCCCC">
+                        <div class="col-md-2 col-sm-12"><h4>Name</h4></div>
+                        <div class="col-md-2 col-sm-12"><h4>Location</h4></div>
+                        <div class="col-md-2 col-sm-12"><h4>Phone</h4></div>
+                        <div class="col-md-2 col-sm-12"><h4>Website</h4></div>
+                        <div class="col-md-2 col-sm-12"><h4>Category</h4></div>
+                        <div class="col-md-1 col-sm-12"><h4>Edit</h4></div>
+                        <div class="col-md-1 col-sm-12"><h4>Remove</h4></div>
+                    </div>
+                    <div class="row" ng-repeat="fav in m_favorites track by $index">
+                        <div class="col-md-2 col-sm-12"><input type="text" class="form-control" ng-model="sub_name" ng-init="sub_name=fav.name" /></div>
+                        <div class="col-md-2 col-sm-12"><input type="text" class="form-control" ng-model="sub_location" ng-init="sub_location=fav.location" /></div>
+                        <div class="col-md-2 col-sm-12"><input type="text" class="form-control" ng-model="sub_phone" ng-init="sub_phone=fav.phone" /></div>
+                        <div class="col-md-2 col-sm-12"><input type="text" class="form-control" ng-model="sub_website" ng-init="sub_website=fav.website" /></div>
+                        <div class="col-md-2 col-sm-12">
+                            <select class="form-control" ng-model="sub_category" ng-init="sub_category=fav.category">
+                                <option value="Restaurant">Restaurant</option>
+                                <option value="Bar-Club">Bar/Club</option>
+                                <option value="Outdoor">Outdoor</option>
+                                <option value="Museum">Museum</option>
+                                <option value="Another">Another</option>
+                            </select>
+                        </div>
+                        <div class="col-md-1 col-sm-12"><a ng-click="edit_favorite(sub_name,sub_location,sub_phone,sub_website,sub_category,fav._id)" style="width:100%" class="btn btn-default">Edit</a></div>
+                        <div class="col-md-1 col-sm-12"><a ng-click="remove_favorite(fav._id)" style="width:100%" class="btn btn-default">Remove</a></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- /.padding-md -->
+    </div>
+    <!-- /main-container -->
+    <!-- Footer ================================================== -->
+    <div ng-include="'/components/account/footer/footer.html'"></div>
+
+</div>
+<!-- /wrapper -->
+
+<a href="" id="scroll-to-top" class="hidden-print"><i class="fa fa-chevron-up"></i></a>
+
+<!-- Pace -->
+<script src='../../../assets/endless/js/endless/pace.min.js'></script>
+
+<!-- Endless -->
+<script src="../../../assets/endless/js/endless/endless.js"></script>
+
+<script>
+var map;
+var sel_place = null;
+
+function initialize() {
+  // Create a map centered in Pyrmont, Sydney (Australia).
+  map = new google.maps.Map(document.getElementById('map-canvas'), {
+    center: {lat: 39.7392358, lng: -104.990251},
+    zoom: 17
+  });
+
+  var input = (document.getElementById('txt_place'));
+
+  var autocomplete = new google.maps.places.Autocomplete(input);
+  autocomplete.bindTo('bounds', map);
+
+  google.maps.event.addListener(autocomplete, 'place_changed', function() {
+
+    var rquery = document.getElementById("txt_place").value;
+
+     if(rquery == undefined || rquery == "")
+        rquery = 'Denver';
+
+     var request = {
+        location: map.getCenter(),
+        radius: '500',
+        query: rquery
+      };
+      var service = new google.maps.places.PlacesService(map);
+      service.textSearch(request, function(results, status) {
+        if (status == google.maps.places.PlacesServiceStatus.OK) {
+
+            var marker = new google.maps.Marker({
+              map: map,
+              place: {
+                placeId: results[0].place_id,
+                location: results[0].geometry.location
+              }
+            });
+
+            var request1 = {
+                placeId: results[0].place_id
+              };
+
+              var service1 = new google.maps.places.PlacesService(map);
+
+              service1.getDetails(request1, function(place, status) {
+                if (status == google.maps.places.PlacesServiceStatus.OK) {
+
+                    map.setCenter(new google.maps.LatLng(place.geometry.location.A, place.geometry.location.F));
+
+                    sel_place = place;
+                }
+              });
+            
+        }
+
+      });
+    
+    });
+}
+google.maps.event.addDomListener(window, 'load', initialize);
+</script>

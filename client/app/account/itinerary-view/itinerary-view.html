@@ -1,0 +1,119 @@
+<!-- Overlay Div -->
+<!--<div id="overlay" class="transparent">
+</div>-->
+
+<div id="wrapper" class="preload sidebar-hide" ng-controller="AccountCtrl">
+
+    <!-- =========================
+     SECTION: TOP NAVIGATION
+    ============================== -->
+    <div ng-include="'/components/account/topNav/topNav.html'"></div>
+
+
+    <!-- =========================
+     SECTION: LEFT NAVIGATION
+    ============================== -->
+    <div ng-include="'/components/account/leftNav/leftNav.html'"></div>
+
+
+    <div id="main-container" ng-cloak>
+        <!-- /breadcrumb-->
+        <div ng-include="'/components/account/topNav/header-msg.html'"></div>
+        <!-- /main-header -->
+
+        <div class="row text-center" style="background-color:#999999;color:#EEEEEE">
+            <a href="#" ng-click="fgo_traveler_itinerary(m_builder._id, dt.toISOString().substr(0, 10))" class="btn" ng-repeat="dt in dt_str_list track by $index" class="row" style="margin:5px 5px 5px 5px">{{week_name[dt.getDay()] + ", " + month_name[dt.getMonth()].substr(0, 3) + " " + dt.getDate()}}</a>
+        </div>
+        <!-- /grey-container -->
+
+        <div class="padding-md row">
+            <div class="row">
+                <div class="col-md-1 col-sm-12"></div>
+                <div class="col-md-10 col-sm-12 text-right">
+                    <a href="/traveler-itinerary/{{m_builder._id}}" class="btn btn-danger">Return to Itinerary</a>                    
+                </div>
+            </div>
+            <div class="row" style="margin-top:15px">
+                <div class="col-md-1 col-sm-12"></div>
+                <div class="col-md-10 col-sm-12">
+                    <div class="row">
+                        <div class="col-md-6 col-sm-12">
+                            <div class="row" ng-repeat="act in m_activity" style="margin-bottom:15px">
+                                <div class="col-md-3 col-sm-12 text-right">
+                                    <h5 ng-show="!(act.time==null || act.duration==null)">
+                                        <span ng-show="act.time<=12">{{act.time}}</span><span ng-show="act.time>12">{{act.time - 12}}</span>:00 <span ng-show="act.time<=12">AM</span><span ng-show="act.time>12">PM</span> - 
+
+                                        <span ng-show="act.duration==30"><span ng-show="act.time<=12">{{act.time}}</span><span ng-show="act.time>12">{{act.time - 12}}</span>:30 <span ng-show="act.time<=12">AM</span><span ng-show="act.time>12">PM</span></span>
+
+                                        <span ng-show="!(act.duration==30)"><span ng-show="act.ltime<=12">{{act.ltime}}</span><span ng-show="act.ltime>12">{{act.ltime - 12}}</span>:00 <span ng-show="act.ltime<=12">AM</span><span ng-show="act.ltime>12">PM</span></span>
+                                    </h5>
+                                    <h3 ng-show="!(act.time==null || act.duration==null)" style="color:#6CBFEE">{{act.duration}} Hour<span ng-show="act.duration>1">s</span></h3>
+                                </div><!--#3994CB-->
+                                <div class="col-md-9 col-sm-12 edit_itinerary_box" style="padding:0px 15px 15px 15px;">
+                                    <div class="row">
+                                        <div class="col-md-7 col-sm-12"><h3 style="cursor:pointer" ng-click="show_place(act.place)">{{act.activity_name}}</h3>{{act.place.name}}</div>
+                                        <div class="col-md-5 col-sm-12 text-right">
+                                            <div style="margin-top:10px;">
+                                                {{act.place.international_phone_number}}<br />
+                                                {{act.place.website}}<br />
+                                                {{act.place.formatted_address}}
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div style="border-top:1px solid #EEEEEE;padding-top:10px">
+                                        <span ng-if="act.place.rating >= 0">
+                                            {{act.place.rating}} <span class="glyphicon glyphicon-star" ng-repeat="i in getNumber(getInteger(act.place.rating)) track by $index"></span><span class="glyphicon glyphicon-star-empty" ng-repeat="i in getNumber(5 - getInteger(act.place.rating)) track by $index"></span>
+                                            <span style="color:#3333CC">{{act.place.user_ratings_total}} Reviews</span><br />
+                                        </span>
+                                        <div style="margin-top:10px" ng-bind-html="act.suggestion"></div>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div ng-show="m_activity==null" class="row">
+                                <div class="col-md-3 col-sm-12"></div>
+                                <div class="col-md-9 col-sm-12 text-center edit_itinerary_box">
+                                    <h3>No Activity</h3>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6 col-sm-12">
+                            <div id="map-canvas" style="height:550px;"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- /.padding-md -->
+    </div>
+    <!-- /main-container -->
+    <!-- Footer ================================================== -->
+    <div ng-include="'/components/account/footer/footer.html'"></div>
+
+</div>
+<!-- /wrapper -->
+<script>
+var map;
+
+function initialize() {
+  // Create a map centered in Pyrmont, Sydney (Australia).
+  map = new google.maps.Map(document.getElementById('map-canvas'), {
+    center: {lat: 39.7392358, lng: -104.990251},
+    zoom: 10
+  });
+
+  
+}
+
+google.maps.event.addDomListener(window, 'load', initialize);
+
+</script>
+
+<a href="" id="scroll-to-top" class="hidden-print"><i class="fa fa-chevron-up"></i></a>
+
+<!-- Pace -->
+<script src='../../../assets/endless/js/endless/pace.min.js'></script>
+
+<!-- Endless -->
+<script src="../../../assets/endless/js/endless/endless.js"></script>

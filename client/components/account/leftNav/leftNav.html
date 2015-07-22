@@ -1,0 +1,36 @@
+<aside class="fixed skin-6">
+    <div class="sidebar-inner scrollable-sidebar">
+        <!-- /search-block -->
+        <div class="main-menu">
+            <ul>
+                <!-- USER NAV -->
+                <li ng-show="isLoggedIn()" ng-class="{active: isActive('/dashboard')}">
+                    <a href="/dashboard">
+                        <span class="menu-icon"><i class="fa fa-desktop fa-lg"></i></span>
+                        <span class="text">Dashboard</span>
+                        <span class="menu-hover"></span>
+                    </a>
+                </li>
+
+                <li ng-show="isLoggedIn()" ng-class="{active: isActive('/my-jrnys')}">
+                    <a href="/my-jrnys">
+                        <span class="menu-icon"><i class="fa fa-file-text fa-lg"></i></span>
+                        <span class="text">My Jrnys</span>
+                        <span class="menu-hover"></span>
+                    </a>
+                </li>
+
+                <!-- Admin Nav -->
+                <li ng-show="isAdmin()" ng-class="{active: isActive('/admin')}">
+                    <a href="/admin">
+                        <span class="menu-icon"><i class="fa fa-tachometer fa-lg"></i></span>
+                        <span class="text">Admin</span>
+                        <span class="menu-hover"></span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+        <!-- /main-menu -->
+    </div>
+    <!-- /sidebar-inner -->
+</aside>

@@ -1,0 +1,169 @@
+<!-- Overlay Div -->
+<!--<div id="overlay" class="transparent">
+</div>-->
+
+<div id="wrapper" class="preload sidebar-hide" ng-controller="AccountCtrl" data-ng-init="get_survey()">
+
+    <!-- =========================
+     SECTION: TOP NAVIGATION
+    ============================== -->
+    <div ng-include="'/components/account/topNav/topNav.html'"></div>
+
+
+    <!-- =========================
+     SECTION: LEFT NAVIGATION
+    ============================== -->
+    <div ng-include="'/components/account/leftNav/leftNav.html'"></div>
+
+
+    <div id="main-container" ng-cloak>
+        <div ng-include="'/components/account/topNav/header-msg.html'"></div>
+        <!-- /main-header -->
+
+        <div class="custom-sub-navbar">
+            <ul class="nav subnav">
+                <li class="active">
+                    <a href="/jrny-basics/{{m_traveler_survey.local}}">Jrny Basics</a>
+                </li>
+                <li>
+                    <a href="/travel-companions/{{m_traveler_survey.local}}">Travel Companions</a>
+                </li>
+                <li>
+                    <a href="/interest-preference/{{m_traveler_survey.local}}">Interests & Preferences</a>
+                </li>
+                <li>
+                    <a href="#">Checkout</a>
+                </li>
+            </ul>
+        </div>
+        <!-- /grey-container -->
+
+
+<!--$scope.dateOptions = {
+            formatYear: 'yy',
+            startingDay: 1,
+            showWeeks: false
+        };
+
+        $scope.format = 'dd-MMMM-yyyy';
+        <input type="text" class="form-control" datepicker-popup="{{format}}" ng-model="getCurrentUser().DateOfBirth" is-open="opened" datepicker-options="dateOptions" date-disabled="disabled(date, mode)" ng-required="true" close-text="Close" ng-focus="open($event)" readonly style="cursor:auto; background-color:#fff;" />
+
+-->
+        <div class="padding-md">
+            <div class="row">
+                <div class="col-md-3"></div>
+                <div class="col-md-6">
+                    <div class="row" style="margin-bottom:10px"><a href="#" style="float:right" class="btn btn-danger" ng-click="save_survey()">SAVE FOR LATER</a></div>
+                    <div class="form-group row">
+                        <div class="col-md-6 col-sm-12">
+                            <div class="row">
+                                <div class="col-md-5 col-sm-12"><h4>Arrival Date</h4></div>
+                                <div class="col-md-7 col-sm-12"><input type="text" id="arr_date" class="form-control" /></div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-5 col-sm-12"><h5>Arrive After 6pm?</h5></div>
+                                <div class="col-md-7 col-sm-12"><input type="checkbox" ng-model="m_traveler_survey.basic.arrive_after" class="form-control" /></div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-sm-12">
+                            <div class="row">
+                                <div class="col-md-5 col-sm-12"><h4>Departure Date</h4></div>
+                                <div class="col-md-7 col-sm-12"><input type="text" id="dep_date" class="form-control" /></div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-5 col-sm-12"><h5>Depart Before 11am?</h5></div>
+                                <div class="col-md-7 col-sm-12"><input type="checkbox" ng-model="m_traveler_survey.basic.depart_before" type="text" class="form-control" /></div>
+                            </div>
+                        </div>                        
+                    </div>
+
+                    <div class="form-group row">
+                        <div class="col-md-1 col-sm-12"></div>
+                        <div class="col-md-5 col-sm-12"><h4>How are you getting here?</h4></div>
+                        <div class="col-md-5 col-sm-12">
+                            <select class="form-control" style="width:60%" ng-model="m_traveler_survey.basic.how_get">
+                                <option value="Airplane">Airplane</option><option value="Car">Car</option><option value="Train">Train</option>
+                                <option value="Bus">Bus</option><option value="Other">Other</option><option value="Unsure">Unsure</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-md-1 col-sm-12"></div>
+                        <div class="col-md-5" style="padding-left:40px"><h4>Have you already booked it?</h4></div>
+                        <div class="col-md-5">
+                            <select id="txt_hab1" style="width:60%" ng-model="m_traveler_survey.basic.how_already_booked" ng-options="val for val in booked_valueList" type="text" class="form-control">
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-md-1 col-sm-12"></div>
+                        <div class="col-md-5 col-sm-12"><h4>Where are you staying</h4></div>
+                        <div class="col-md-5 col-sm-12">
+                            <select class="form-control" style="width:60%" ng-model="m_traveler_survey.basic.where_stay">
+                                <option value="Hotel Room">Hotel Room</option><option value="Hostel">Hostel</option><option value="House">House</option>
+                                <option value="Apartment">Apartment</option><option value="Other">Other</option><option value="Unsure">Unsure</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-md-1 col-sm-12"></div>
+                        <div class="col-md-5" style="padding-left:40px"><h4>Have you already booked it?</h4></div>
+                        <div class="col-md-5">
+                            <select id="txt_hab2" style="width:60%" ng-model="m_traveler_survey.basic.where_already_booked" ng-options="val for val in booked_valueList" type="text" class="form-control">
+                            </select>
+                        </div>
+                    </div>
+                    
+                </div>
+                <div class="col-md-3 col-sm-12"></div>                
+            </div>
+            <div class="form-group row" style="margin-top:20px">
+                <div class="col-md-4"></div>
+                <a ng-click="next_survey(1)" class="btn btn-success col-md-4 col-sm-12 col-xs-12 text-center">NEXT</a>
+            </div>
+        </div>
+        <!-- /.padding-md -->
+    </div>
+    <!-- /main-container -->
+    <!-- Footer ================================================== -->
+    <div ng-include="'/components/account/footer/footer.html'"></div>
+
+</div>
+<!-- /wrapper -->
+
+<a href="" id="scroll-to-top" class="hidden-print"><i class="fa fa-chevron-up"></i></a>
+
+<!-- Pace -->
+<script src='../../../assets/endless/js/endless/pace.min.js'></script>
+
+<!-- Endless -->
+<script src="../../../assets/endless/js/endless/endless.js"></script>
+
+<script>
+$(function() {
+    var dt = new Date();
+
+    var month = new Array();
+    month[0] = "January";
+    month[1] = "February";
+    month[2] = "March";
+    month[3] = "April";
+    month[4] = "May";
+    month[5] = "June";
+    month[6] = "July";
+    month[7] = "August";
+    month[8] = "September";
+    month[9] = "October";
+    month[10] = "November";
+    month[11] = "December";
+
+    $( "#arr_date" ).datepicker();
+    $( "#arr_date" ).datepicker( "option", "dateFormat", 'MM dd, yy' );
+    $( "#arr_date" ).datepicker( "setDate", month[dt.getMonth()] + " " + dt.getDate() + ", " + dt.getFullYear() );
+
+    dt.setDate(dt.getDate() + 1);
+    $( "#dep_date" ).datepicker();
+    $( "#dep_date" ).datepicker( "option", "dateFormat", 'MM dd, yy' );
+    $( "#dep_date" ).datepicker( "setDate", month[dt.getMonth()] + " " + dt.getDate() + ", " + dt.getFullYear() );
+});
+</script>

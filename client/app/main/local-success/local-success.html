@@ -1,0 +1,30 @@
+<div class="navbar navbar-inverse bs-docs-nav navbar-fixed-top sticky-navigation white" role="navigation">
+    <div ng-include="'/components/navbar/navbar.html'"></div>
+</div>
+
+<section class="faqs secondaryTemplate" ng-controller="localapplicationCtrl">
+    <div class="container">
+        <h2>Share With Friends and Family</h2>
+        <h4>Thank you for applying to become a Jrny Local. We will review your application and be in touch within 5 days.</h4>
+        <hr>
+        <div class="row">
+            <div class="col-md-7 col-sm-6">
+                <h4>Now share your excitement with the world...</h4>
+                <a class="btn btn-facebook" href="" ng-click="loginOauth('facebook')">
+                    <i class="fa fa-facebook"></i> Facebook
+                </a>
+                <a class="btn btn-google-plus" href="" ng-click="loginOauth('google')">
+                    <i class="fa fa-google-plus"></i> Google+
+                </a>
+                <a class="btn btn-twitter" href="" ng-click="loginOauth('twitter')">
+                    <i class="fa fa-twitter"></i> Twitter
+                </a>
+            </div>
+            <div class="col-md-5 col-sm-5">
+                <h4>Or learn more about Jrny!</h4>
+                <a class="btn btn-success" href="/" style="margin-left:20px;margin-top:20px;padding:20px 20px 20px 20px">RETURN TO HOMEPAGE</a>
+            </div>
+    </div>
+</section>
+
+<div ng-include="'/components/footer/footer.html'"></div>

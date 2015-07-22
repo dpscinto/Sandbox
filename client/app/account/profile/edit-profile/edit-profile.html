@@ -1,0 +1,314 @@
+<!-- Overlay Div -->
+<!--<div id="overlay" class="transparent">
+</div>-->
+
+<div id="wrapper" class="preload sidebar-hide" ng-controller="AccountCtrl" ng-cloak>
+
+    <!-- =========================
+   SECTION: TOP NAVIGATION
+  ============================== -->
+    <div ng-include="'/components/account/topNav/topNav.html'"></div>
+
+
+    <!-- =========================
+   SECTION: LEFT NAVIGATION
+  ============================== -->
+    <div ng-include="'/components/account/leftNav/leftNav.html'"></div>
+
+
+    <div id="main-container">
+        <div ng-include="'/components/account/topNav/header-msg.html'"></div>
+        <!-- /breadcrumb-->
+        <!-- /main-header -->
+        <div class="custom-sub-navbar">
+            <ul class="nav subnav nav-extra-top">
+                <li>
+                    <a href="/dashboard">Dashboard</a>
+                </li>
+                <li>
+                    <a href="/favorite/Restaurant/1/1">Your Favorites</a>
+                </li>
+                <li>
+                    <a href="/message_inbox">Messages</a>
+                </li>
+                <li class="active">
+                    <a href="/edit-profile">Profile</a>
+                </li>
+                <li>
+                    <a href="/notifications">Account</a>
+                </li>
+            </ul>
+        </div>
+        <div class="custom-sub-navbar">
+            <ul class="nav subnav nav-extra-bottom">
+                <li class="active">
+                    <a href="/edit-profile">Basic Information</a>
+                </li>
+                <li>
+                    <a href="/about-you">About You</a>
+                </li>
+                <li>
+                    <a href="/survival-guide/summary">Survival Guide</a>
+                </li>
+                <li>
+                    <a href="/reviews-profile">Reviews</a>
+                </li>
+                <li>
+                    <a href="/verifications">Verifications</a>
+                </li>
+            </ul>
+        </div>
+
+        <div class="padding-md">
+            <div class="row">
+                <div class="col-sm-2 col-md-2 text-center">                    
+                    <div class="row">
+                        <div class="col-md-1 col-sm-12"></div>
+                        <div class="col-md-10 col-sm-12 text-center cover_photo" style="background-image:url('{{getCurrentUser().coverUrl}}')">
+                            <div ngf-drop ngf-select ng-model="files" class="drop-box" ngf-drag-over-class="dragover" ngf-multiple="true" ngf-allow-dir="true" accept="image/*" title="Drop images here or click to upload" style="margin-top:15px">
+                                <span class="glyphicon glyphicon-user" aria-hidden="true" ng-hide="getCurrentUser().photoUrl"></span>
+                                <img ng-show="getCurrentUser().photoUrl" src="{{getCurrentUser().photoUrl}}" class="user-photo">
+                            </div>
+                            <a ngf-select ng-model="files_cover" ngf-multiple="true" ngf-allow-dir="true" accept="image/*" class="btn btn-danger text-center" style="margin-top:20px">Update Cover Photo</a>
+                        </div>
+
+                    </div>
+                    <a style="margin-top:10px" ng-click="showProfile(getCurrentUser()._id)" class="btn btn-success">View Profile</a>
+
+                </div>
+                <div class="col-sm-10 col-md-10">
+                    <!-- EDIT PROFILE FORM -->
+                    <div class="panel panel-default">
+                        <form class="form-horizontal form-border">
+                            <div class="panel-heading">
+                                <h4>Basic Information</h4>
+                            </div>
+                            <div class="panel-body">
+                                <div class="form-group">
+                                    <label class="control-label col-md-2">First Name</label>
+
+                                    <div class="col-md-4">
+                                        <input type="text" class="form-control input-sm" placeholder="First Name" ng-model="getCurrentUser().firstName">
+                                    </div>
+
+                                    <label class="control-label col-md-2">Last Name</label>
+
+                                    <div class="col-md-4">
+                                        <input type="text" class="form-control input-sm" placeholder="First Name" ng-model="getCurrentUser().lastName">
+                                    </div>
+                                    <!-- /.col -->
+                                </div>
+
+                                <!-- /form-group -->
+                                <div class="form-group">
+                                    <label class="control-label col-md-2">Email</label>
+
+                                    <div class="col-md-4">
+                                        <input type="email" class="form-control input-sm" ng-model="getCurrentUser().email">
+                                    </div>
+                                    <!-- /.col -->
+                                    <label class="control-label col-md-2">Phone</label>
+
+                                    <div class="col-md-4 text-right">
+                                            <div class="col-md-4 col-sm-12"><input type="text" class="form-control input-sm" ng-model="m_phone1"></div>
+                                            <div class="col-md-8 col-sm-12"><input type="text" class="form-control input-sm" ng-model="m_phone2"></div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- /form-group -->
+
+                                <!-- /form-group -->
+                                <div class="form-group">
+                                    <label class="control-label col-md-2">Gender</label>
+
+                                    <div class="col-md-4">
+                                        <div class="row">
+                                            <div class="col-md-2 col-sm-12" style="margin-top:6px">
+                                                <label class="label-radio inline">
+                                                    <input type="radio" name="inline-radio" ng-model="getCurrentUser().gender" value="male"><span style="margin-left:20px"> Male</span>
+                                                </label>
+                                            </div>
+                                            <div class="col-md-3 col-sm-12" style="margin-top:6px">
+                                                <label class="label-radio inline">
+                                                    <input type="radio" name="inline-radio" ng-model="getCurrentUser().gender" value="female"><span style="margin-left:20px"> Female</span>
+                                                </label>
+                                            </div>
+                                            <div class="col-md-2 col-sm-12" style="margin-top:6px">
+                                                <label class="label-radio inline" >
+                                                    <input type="radio" name="inline-radio" ng-model="getCurrentUser().gender" value="other"><span style="margin-left:20px;"> Other</span>
+                                                </label>
+                                            </div>
+                                            <div class="col-md-5 col-sm-12">
+                                                <input type="text" class="form-control" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <label class="control-label col-md-2">Birthday</label>
+
+                                    <div class="col-md-4">
+                                        <div class="input-group">
+                                            <div class="row">
+                                                <div class="col-md-4 col-sm-12" style='padding-right:0px'>
+                                                    <select class="form-control input-sm" ng-options="obj.value as obj.text for obj in month_name_list" ng-model="m_month" ng-init="m_month=getInt(getCurrentUser().DateOfBirth.substr(5,2))" style="width:100%">
+                                                        <option value="">Select month</option>
+                                                        <!--<option ng-repeat="mon in month_name_list track by $index" value="{{mon}}">{{mon}}</option>-->
+                                                    </select>
+                                                </div>
+                                                <div class="col-md-4 col-sm-12">
+                                                    <select class="form-control input-sm" ng-model="m_day" ng-init="m_day=getInt(getCurrentUser().DateOfBirth.substr(8,2))" ng-options="day for day in dayList">
+                                                        <option value="">Select day</option>
+                                                    </select>
+                                                </div>
+                                                <div class="col-md-4 col-sm-12">
+                                                    <select class="form-control input-sm" ng-model="m_year" ng-init="m_year=getInt(getCurrentUser().DateOfBirth.substr(0,4))" ng-options="year for year in yearList">
+                                                        <option value="">Select year</option>
+                                                    </select>
+                                                </div>
+
+                                            </div>
+                                            <!--<input type="text" class="form-control" datepicker-popup="{{format}}" ng-model="getCurrentUser().DateOfBirth" is-open="opened" datepicker-options="dateOptions" date-disabled="disabled(date, mode)" ng-required="true" close-text="Close" ng-focus="open($event)" readonly style="cursor:auto; background-color:#fff;" />
+                                            <span class="input-group-btn">
+                                                <button type="button" class="btn btn-default" ng-click="open($event)"><i
+                                                  class="glyphicon glyphicon-calendar"></i></button>
+                                              </span>-->
+                                        </div>
+                                    </div>
+                                    <!-- /.col -->
+                                </div>
+                                <!-- /form-group -->
+                                <div class="form-group">
+                                    <label class="control-label col-md-2">The Place You Call Home</label>
+
+                                    <div class="col-md-4">
+                                        <input type="text" g-places-autocomplete ng-model="getCurrentUser().homeTown" name="homeTown" class="form-control input-box" placeholder="Home Town">
+                                    </div>
+                                    <label class="control-label col-md-2">Since when?</label>
+
+                                    <div class="col-md-1">
+                                        <select ng-disabled="m_is_native" class="form-control input-sm" ng-model="getCurrentUser().since_month" ng-options="obj.value as obj.text for obj in month_name_list">
+                                            <option value="">month</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-1">
+                                        <select ng-disabled="m_is_native" class="form-control input-sm" ng-model="getCurrentUser().since_year" ng-options="year for year in yearList">
+                                            <option value="">year</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-2 col-sm-12">
+                                        <label class="label-radio inline">
+                                            <input type="checkbox" ng-model="m_is_native" /><span style="margin-left:20px;line-height:26px">I'm a Native!</span>
+                                        </label>
+                                    </div>                                    
+                                    <!-- /.col -->
+                                </div>
+
+
+
+                                <div class="form-group">
+                                    <label class="control-label col-md-2">Language</label>
+                                    <div class="col-md-4">
+                                        <select class="form-control" ng-model="sel_lang" ng-options="lang for lang in languageList" ng-change="addLanguage()">
+                                            <option value="">Select language</option>
+                                        </select>
+                                    </div>
+                                    <!-- /.col -->
+                                    <label class="control-label col-md-1" style="text-align: left">Language</label>
+                                    <label class="control-label col-md-2" style="text-align: left">Reading</label>
+                                    <label class="control-label col-md-2" style="text-align: left">Writing</label>
+
+                                    <div class="row">
+                                        <div class="col-md-6 col-sm-12"></div>
+                                        <div class="col-md-6 col-sm-12">
+                                            <div class="row" ng-repeat="language in getCurrentUser().languages" style="padding: 5px 0 0 0;">
+                                                <label class="control-label col-md-2" style="text-align: left">{{language.lang}}</label>
+                                                <div class="col-md-4" style="padding-left: 0;">
+                                                    <select class="form-control" ng-model="language.reading" ng-options="level for level in levels"></select>
+                                                </div>
+                                                <div class="col-md-4" style="padding-left: 0;">
+                                                    <select class="form-control" ng-model="language.writing" ng-options="level for level in levels"></select>
+                                                </div>
+                                                <div class="col-md-2">
+                                                    <button class="btn btn-default" ng-click="removeLanguage(language)"><span class="glyphicon glyphicon-remove"></span>
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <div class="row" style="margin-bottom:10px;margin-right:15px">
+                                    <div class="col-md-2 col-sm-12"></div>
+                                    <div class="text-right col-md-10 col-sm-12">
+                                        <button class="btn btn-sm btn-success" style='width:20%' ng-click="update()">Update</button>
+                                    </div>
+                                </div>
+                        </form>
+                        </div>
+                        <div class="panel panel-default">
+                            <form ng-controller="SettingsCtrl" class="form" name="form" ng-submit="changePassword(form)" novalidate>
+                                <div class="panel-heading">
+                                    Change Password
+                                </div>
+                                <div class="panel-body">
+                                    <div class="form-group">
+                                        <label class="control-label col-md-2">Current Password</label>
+
+                                        <div class="col-md-3">
+                                            <input type="password" name="password" class="form-control input-sm" ng-model="user.oldPassword" mongoose-error>
+
+                                            <p class="help-block" ng-show="form.password.$error.mongoose">
+                                                {{ errors.other }}
+                                            </p>
+                                        </div>
+                                        <label class="control-label col-md-2">New Password</label>
+
+                                        <div class="col-md-3">
+                                            <input type="password" name="newPassword" class="form-control input-sm" ng-model="user.newPassword" ng-minlength="3" required>
+
+                                            <p class="help-block" ng-show="(form.newPassword.$error.minlength || form.newPassword.$error.required) && (form.newPassword.$dirty || submitted)">
+                                                Password must be at least 3 characters.
+                                            </p>
+                                        </div>
+                                        <div class="col-md-2 text-right">
+                                            <button class="btn btn-sm btn-danger">Change Password</button>
+                                        </div>
+                                        <!-- /.col -->
+                                    </div>
+                                </div>
+                                <div class="panel-footer">
+
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    <!-- /.col -->
+                </div>
+                <!-- /.row -->
+            </div>
+            <!-- /.padding-md -->
+        </div>
+        <!-- /main-container -->
+        <!-- Footer
+      ================================================== -->
+        <footer>
+            <div class="row">
+                <div class="col-sm-6">
+                    <p class="no-margin">
+                        &copy; 2015 <strong>JRNY</strong>. ALL Rights Reserved.
+                    </p>
+                </div>
+                <!-- /.col -->
+            </div>
+            <!-- /.row-->
+        </footer>
+    </div>
+    <!-- /wrapper -->
+
+    <a href="" id="scroll-to-top" class="hidden-print"><i class="fa fa-chevron-up"></i></a>
+
+    <!-- Pace -->
+    <script src='../../../assets/endless/js/endless/pace.min.js'></script>
+
+    <!-- Endless -->
+    <script src="../../../assets/endless/js/endless/endless.js"></script>

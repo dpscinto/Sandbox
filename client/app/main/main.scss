@@ -1,0 +1,425 @@
+.intro-section {
+    h2 {
+        font-size: 36px;
+    }
+}
+
+.loginTitle,
+.signupTitle {
+    color: #fff;
+    font-size: 40px;
+    background: rgba(0, 5, 8, 0.40);
+    padding: 5px;
+}
+
+#localSignupBtn {
+    position: relative;
+    &:before {
+        content: "Be One of the First Locals in Your Area!";
+        color: #fff;
+        position: absolute;
+        left: -520px;
+        top: 0px;
+        font-family: 'Amatic SC', cursive;
+        font-size: 40px;
+    }
+}
+
+.services {
+    padding-bottom: 50px;
+}
+
+.color-overlay {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background-color: rgba(122, 122, 122, .5);
+    z-index: 99;
+}
+
+#welcome-main {
+    padding: 96px 32px 0px;
+    text-align: center;
+    h1 {
+        margin-bottom: 30px;
+    }
+    p {
+        font-size: 17px;
+        max-width: 1020px;
+        margin: auto;
+        line-height: 1.4em;
+        margin-bottom: 30px;
+    }
+}
+/* TRAVELERS FAQS */
+
+.faqs {
+    ul {
+        margin-bottom: 30px;
+        margin-top: 20px;
+        padding: 0px;
+        list-style: none;
+        li {
+            font-size: 15px;
+            margin-bottom: 50px;
+            strong {
+                margin-bottom: 15px;
+                font-size: 18px;
+                display: block;
+                font-family: 'Julius Sans One', sans-serif;
+            }
+        }
+    }
+}
+
+.secondaryTemplate {
+    margin-top: 70px;
+    text-align: left;
+    padding-top: 20px;
+    padding-bottom: 50px;
+    min-height: 400px;
+    h2 {
+        font-family: 'Julius Sans One', sans-serif;
+    }
+    h3 {
+        font-family: 'Julius Sans One', sans-serif;
+    }
+}
+
+#home-quote {
+    padding: 30px;
+    background: #000;
+    h2 {
+        font-family: 'Julius Sans One', sans-serif;
+        font-size: 40px;
+        line-height: 50px;
+        margin-bottom: 30px;
+        color: #fff;
+        padding: 0px 90px;
+    }
+    i {
+        color: #f9f9f9;
+        font-family: wanderlust;
+        font-size: 40px;
+        margin-bottom: 30px;
+        display: block;
+    }
+}
+
+#login-quote {
+    padding: 30px;
+    text-align: center;
+    h2 {
+        font-family: wanderlust;
+        font-size: 45px;
+        line-height: 55px;
+        margin-bottom: 10px;
+        color: #fff;
+    }
+    i {
+        color: #f9f9f9;
+    }
+}
+
+#homeDestinationHelp {
+    color: #fff;
+    text-decoration: none;
+    float: left;
+    padding: 5px 0px 0px 10px;
+    a {
+        cursor: pointer;
+        &:hover {
+            text-decoration: underline;
+        }
+    }
+}
+
+#pre-footer h2 {
+    font-size: 24px;
+    padding-bottom: 10px;
+    font-family: "Julius Sans One", sans-serif;
+}
+
+.nav-extra-top {
+    background-color:#999999 !important;
+}
+
+.nav-extra-top > li > a {
+    color: #FFFFFF !important;
+    line-height:20px !important;
+}
+
+.nav-extra-bottom {
+    background-color:#CCCCCC !important;
+    line-height:20px !important;
+}
+
+.nav-extra-bottom > li > a {
+    color: #FFFFFF !important;
+}
+
+.navbar-inverse .navbar-nav > .active > a,
+.navbar-inverse .navbar-nav > .active > a:hover,
+.navbar-inverse .navbar-nav > .active > a:focus {
+    color: #000;
+    background-color: #f9f9f9 !important;
+}
+
+.nav-pills > li.active > a,
+.nav-pills > li.active > a:hover,
+.nav-pills > li.active > a:focus {
+    background: #f9f9f9 !important;
+    color: #0fd6c0 !important;
+}
+
+.timeline {
+    .single-service {
+        background: none repeat scroll 0 0 #ffffff;
+        border-color: #eaeaea;
+        border-radius: 3px;
+        border-style: solid;
+        border-width: 1px 1px 4px;
+        margin: 0px;
+        min-height: 110px;
+        padding: 15px;
+        transition: all 0.55s ease 0s;
+        text-align: left;
+        h3 {
+            font-size: 25px;
+            line-height: 30px;
+            margin: 0px;
+        }
+        i {
+            width: 16px;
+            color: #0FD6C0;
+        }
+        p {
+            margin: 5px 0px 5px 25px;
+        }
+    }
+}
+
+.email-icon {
+    border-radius: 4px;
+    background-color: #0FD6C0;
+    font-size: 16px;
+    color: #fff;
+    padding: 2px 0px;
+    line-height: 16px;
+    display: inline;
+    margin: 0px;
+    width: 23px;
+    height: 22px;
+    display: block;
+    float: right;
+    margin-top: 2px;
+    margin-left: 6px;
+}
+
+#pre-footer {
+    background: #fff;
+    h2 {
+        float: left;
+    }
+    .pre-footer-social {
+        float: left;
+        padding: 30px;
+        .icon {
+            font-size: 24px;
+        }
+        .email-icon a:hover {
+            color: #fff;
+        }
+    }
+}
+
+.bg-signup {
+    background: url(../../assets/images/background-images/1.jpg) 100% 100%;
+}
+
+.position-initial {
+    position: initial !important;
+}
+
+.mt-5 {
+    margin-top: 5px !important;
+}
+
+.mr-5 {
+    margin-right: 5px !important;
+}
+
+.mb-5 {
+    margin-bottom: 5px !important;
+}
+
+.ml-5 {
+    margin-left: 5px !important;
+}
+
+.b {
+    border: 1px solid #000;
+}
+
+.phone_list {
+    margin-top: 3px
+}
+
+.phone_text {
+    line-height: 28px
+}
+
+.review_list_row {
+    border-bottom: 1px solid #cccccc;
+    padding-bottom: 15px !important;
+    margin-bottom: 20px !important;
+}
+
+.review_list_row:last-child {
+    border-bottom: none;
+}
+
+textarea {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    width: 100%;
+}
+
+.review_photo {
+    width: 79px !important;
+    height: 79px !important;
+}
+
+.star-img1 {
+    width: 16px;
+    height: 16px;
+}
+
+.star-img2 {
+    width: 14px;
+    height: 14px;
+}
+
+.jrny_list_box {
+    background-color: #AAB8BC;
+    height: 380px;
+    width: 280px;
+    border-radius: 5px;
+    color: #FFFFFF;
+    padding: 10px 10px 10px 10px;
+}
+
+.jrny_person_box {
+    margin-top: 15px;
+    margin-left: 10px;
+    border-radius: 5px;
+    background-color: #FFFFFF;
+    width: 240px !important;
+    height: 90px;
+}
+
+.review_photo_sm {
+    width: 59px !important;
+    height: 59px !important;
+}
+
+.review_photo_lg {
+    width: 149px !important;
+    height: 149px !important;
+}
+
+.row_border {
+    border-left: 1px solid #EEEEEE;
+    border-bottom: 1px solid #EEEEEE;
+    border-right: 1px solid #EEEEEE;
+    width: 100%;
+    padding: 10px 10px 10px 10px;
+}
+
+.itinerary_calendar {
+    width: 14%;
+    float: left;
+    text-align: center;
+    border-left: 1px solid #CCC;
+    border-right: 1px solid #CCC;
+    border-bottom: 1px solid #CCC;
+    background-color: #FFFFFF;
+}
+
+.edit_itinerary_box {
+    background-color: #6CBFEE;
+    color: #FFFFFF;
+    border-radius: 5px;
+}
+
+.location_table div div{
+    border-left:1px solid #CCCCCC;
+    border-right:1px solid #CCCCCC;
+    border-bottom:1px solid #CCCCCC;
+}
+
+.cover_photo {
+    border:1px solid #CCCCCC;
+    height:300px;
+    background-size:100% 300px;
+}
+
+.search_cover_photo {
+    width:100%;
+    height:300px;
+    margin-bottom:20px;
+    background-color:#AAB8BC;
+    border-radius:5px;
+    padding-top:10px;
+    background-size:100% 300px;    
+}
+
+.chat_photo_1 {
+    float:left;
+    width:100px;
+    margin-left:15px
+}
+
+.chat_photo_2 {
+    float:right;
+    width:60px;
+}
+
+.chat_msg_1 {
+    margin-left:110px;
+    background-color:#FFFFFF;
+    min-height:65px;
+    border-radius:5px;
+    padding:5px 5px 5px 5px
+}
+
+.chat_msg_2 {
+    margin-right:90px;
+    margin-left:35px;
+    background-color:#FFFFFF;
+    min-height:65px;
+    border-radius:5px;
+    padding:5px 5px 5px 5px
+}
+
+.local_app_circle {
+    width:100px;
+    height:100px;
+    border-radius:50px;
+    border:1px solid #000;
+    text-align:center;
+    padding-top:35px;
+    font-weight:bold
+}
+
+.local_app_title {
+    font-size:26px;
+    font-weight:bold
+}
+
+textarea {
+    resize: none;
+}

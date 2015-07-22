@@ -1,0 +1,169 @@
+<!-- Overlay Div -->
+<!--<div id="overlay" class="transparent">
+</div>-->
+
+<div id="wrapper" class="preload sidebar-hide" ng-controller="AccountCtrl">
+
+    <!-- =========================
+     SECTION: TOP NAVIGATION
+    ============================== -->
+    <div ng-include="'/components/account/topNav/topNav.html'"></div>
+
+
+    <!-- =========================
+     SECTION: LEFT NAVIGATION
+    ============================== -->
+    <div ng-include="'/components/account/leftNav/leftNav.html'"></div>
+
+
+    <div id="main-container" ng-cloak>        
+        <div ng-include="'/components/account/topNav/header-msg.html'"></div>
+        <!-- /main-header -->
+
+        <div class="custom-sub-navbar">
+            <ul class="nav subnav nav-extra-top">
+                <li class="active">
+                    <a href="/dashboard">Dashboard</a>
+                </li>
+                <li>
+                    <a href="/favorite/Restaurant/1/1">Your Favorites</a>
+                </li>
+                <li>
+                    <a href="/message_inbox">Messages</a>
+                </li>
+                <li>
+                    <a href="/edit-profile">Profile</a>
+                </li>
+                <li>
+                    <a href="/notifications">Account</a>
+                </li>
+            </ul>
+        </div>
+        <!-- /grey-container -->
+
+        <div class="padding-md">
+            <div class="row">
+                <div class="col-md-1 col-sm-12"></div>
+
+                <!--main part-->
+                <div class="col-md-5 col-sm-12">
+                    <!--Itinerary Builder-->
+                    <div class="row">
+
+                        <div class="row"><h3>Itinerary Builder</h3></div>
+                        <div class="row" style="margin-top:10px">
+                            <div class="col-md-12 col-sm-12">
+                                <a class="btn" ng-click="get_builder('0')" href="#">All</a>|<a class="btn" ng-click="get_builder('1')" href="#">In Progress({{m_count_builder.num1}})</a>|<a ng-click="get_builder('2')" class="btn" href="#">Approved({{m_count_builder.num2}})</a>|<a ng-click="get_builder('3')" class="btn" href="#">Completed</a>
+                            </div>
+                        </div>
+
+
+                        <div class="row" style="margin-top:30px">
+                            <div class="row">Most Recently Planned Jrny</div>
+                            <div class="row">
+                                <div class="col-md-5 col-sm-12" ng-repeat="builder in m_builder track by $index">                                
+                                    <div class="row" style="margin-top:15px">
+                                        <div class="col-md-12 col-sm-12">
+                                        <div class="jrny_list_box">
+                                            <div class="text-center"><h1 style='margin-top:5px;margin-bottom:10px'>{{builder.firstName}} {{builder.lastName.substr(0, 1)}}</h1></div>
+                                            <div class="text-center" style="margin-top:0px;font-size:14px;" ng-bind-html="builder.str_period"></div>
+                                            <div class="text-center jrny_person_box" style="height:170px">
+                                                <div class="row" style="padding-top:5px">
+                                                    <h5 style="font-size:12px;color:#999999;text-align:left;margin-left:25px">Group Members</h5>
+
+                                                    <div style="margin-left:25px;width:60px;float:left" ng-repeat="user in builder.m_invited_user track by $index">
+                                                        <div class="drop-box" style="width:60px;height:60px;margin-bottom:5px" ng-click="showProfile(user._id)">
+                                                            <img class="user-photo review_photo_sm" ng-hide="user.photoUrl" src="assets/images/icons/no-photo.jpg" />
+                                                            <img class="user-photo review_photo_sm" ng-show="user.photoUrl" src="{{user.photoUrl}}" />
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                            <div class="text-center" style="margin-top:10px;">
+                                                <button ng-show="!(builder.isaccept=='0')" class="btn btn-danger" style="width:75%">View Travel Summary</button>
+                                                <button ng-show="(builder.isaccept=='0')" ng-click="accept_itinerary(builder._id, $index)" class="btn btn-danger" style="width:75%">Accept Itinerary</button>
+                                            </div>
+                                            <div class="text-center" style="margin-top:5px;"><a href="/itinerary-builder/{{builder._id}}" class="btn btn-success" style="width:75%">View Itinerary</a></div>
+                                        </div>
+                                        </div>
+
+                                    </div>
+
+                                </div>                                
+                            </div>
+                            <div class="row" style="margin-top:30px">
+                                <div class="col-md-9 col-sm-12"><input type="text" class="form-control" placeholder="Search your Jrnys Here" /></div>
+                                <div class="col-md-3 col-sm-12" style="float:right"><button class="btn btn-info">Search</button></div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Itinerary Builder end-->
+                    
+                </div>
+                <div class="col-md-5 col-sm-12">
+                    <!--Your Jrny-->
+                    <div class="row">
+                        <div class="row"><h3>Your Jrnys</h3></div>
+                        <div class="row" style="margin-top:10px">
+                            <div class="col-md-12 col-sm-12">
+                                <a class="btn" ng-click="get_jrny('0')" href="#">All</a>|<a ng-click="get_jrny('1')" class="btn" href="#">In Progress({{m_count_jrny.num1}})</a>|<a ng-click="get_jrny('2')" class="btn" href="#">Approved({{m_count_jrny.num2}})</a>|<a ng-click="get_jrny('3')" class="btn" href="#">Completed</a>
+                            </div>
+                        </div>
+                        <div class="row" style="margin-top:30px;">
+                            <div class="row">Recently Updated</div>
+                            <div class="row">
+                                <div class="col-md-5 col-sm-12" ng-repeat="jrny in m_jrny track by $index">                                
+                                    <div class="row" style="margin-top:15px">
+                                        <div class="col-md-12 col-sm-12">
+                                            <div class="jrny_list_box">
+                                                <div class="text-center"><div style="margin-top:15px;margin-bottom:10px;font-size:22px;font-weight:bold">{{jrny.homeTown.formatted_address}}&nbsp;</div></div>
+                                                <div class="text-center" style="margin-top:20px;font-size:14px;" ng-bind-html="jrny.str_period"></div>
+                                                <div class="text-center jrny_person_box">
+                                                    <div class="row" style="padding-top:5px">
+                                                        <div style="margin-left:25px;width:80px;float:left">
+                                                            <div class="drop-box" style="width:80px;height:80px" ng-click="showProfile(jrny.uid)">
+                                                                <img class="user-photo review_photo" ng-hide="jrny.photoUrl" src="assets/images/icons/no-photo.jpg" />
+                                                                <img class="user-photo review_photo" ng-show="jrny.photoUrl" src="{{jrny.photoUrl}}" />
+                                                            </div>
+                                                        </div>
+                                                        <div style="color:#000000;margin-top:30px"><h4>{{jrny.firstName}} {{jrny.lastName.substr(0, 1)}}</h4></div>
+                                                    </div>
+                                                </div>
+                                                <div class="text-center" style="margin-top:30px;"><a href="/message_write/{{jrny.uid}}" class="btn btn-info" style="width:75%">Message Local</a></div>
+                                                <div class="text-center" style="margin-top:10px;">
+                                                    <button ng-show="(jrny.isaccept=='0')" class="btn btn-success" style="width:75%">Pending</button>
+                                                    <a href="/traveler-itinerary/{{jrny._id}}" ng-show="!(jrny.isaccept=='0')" class="btn btn-success" style="width:75%">View Itinerary</a>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row" style="margin-top:30px">
+                            <div class="col-md-9 col-sm-12"><input type="text" class="form-control" placeholder="Search your Jrnys Here" /></div>
+                            <div class="col-md-3 col-sm-12" style="float:right"><button class="btn btn-info">Search</button></div>
+                        </div>
+                    </div>
+                    <!--Your Jrnys end-->
+                </div>
+            </div>
+        </div>
+        <!-- /.padding-md -->
+    </div>
+    <!-- /main-container -->
+    <!-- Footer ================================================== -->
+    <div ng-include="'/components/account/footer/footer.html'"></div>
+
+</div>
+<!-- /wrapper -->
+
+<a href="" id="scroll-to-top" class="hidden-print"><i class="fa fa-chevron-up"></i></a>
+
+<!-- Pace -->
+<script src='../../../assets/endless/js/endless/pace.min.js'></script>
+
+<!-- Endless -->
+<script src="../../../assets/endless/js/endless/endless.js"></script>
