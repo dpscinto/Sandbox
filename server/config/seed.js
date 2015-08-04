@@ -32,7 +32,7 @@ Thing.find({}).remove(function () {
 });
 */
 
-/*User.find({}).remove(function () {
+User.find({}).remove(function () {
     User.create({
         provider: 'local',
         firstName: 'John',
@@ -76,4 +76,4 @@ Thing.find({}).remove(function () {
     }, function () {
         console.log('finished populating users');
     });
-});*/
+});

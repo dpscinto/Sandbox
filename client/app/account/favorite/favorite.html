@@ -83,8 +83,19 @@
             </div>
             <div class="row" style="margin-top:15px">
                 <div class="col-md-1"></div>
-                <div class="col-md-10" style="overflow:auto;height:600px">                    
-                    <div ng-repeat="fav in m_favorites track by $index" style="border:1px solid #CCCCCC;border-radius:10px;width:460px;height:250px;padding:10px 10px 10px 10px;margin-left:20px;float:left;margin-bottom:15px">
+                <div class="col-md-2" style="padding-left: 20px" ng-show="m_ismodify">
+
+                    <div class="row"><div class="col-md-12 col-sm-12"><h4>Place</h4></div></div>
+                    <div class="row">
+                        <div class="col-md-12 col-sm-12">
+                            <input id="txt_place1" type="text" class="form-control" />
+                        </div>
+                    </div>
+                    <div class="row" style="margin-top: 20px"><button class="btn btn-success col-xs-8 col-xs-offset-2" ng-click="setPlace1()">Modify</button></div>
+
+                </div>
+                <div class="col-md-8" style="overflow:auto;height:600px">
+                    <div ng-repeat="fav in m_favorites track by $index" style="border:1px solid #CCCCCC;border-radius:10px;width:360px;height:250px;padding:10px 10px 10px 10px;margin-left:20px;float:left;margin-bottom:15px">
                         <h3>{{fav.place.name}}</h3>
                         <div style="margin-top:10px;margin-bottom:10px">{{fav.place.rating}} <span class="glyphicon glyphicon-star" ng-repeat="i in getNumber(getInteger(fav.place.rating)) track by $index"></span><span class="glyphicon glyphicon-star-empty" ng-repeat="i in getNumber(5 - getInteger(fav.place.rating)) track by $index"></span> <span style="color:#3333CC">{{fav.place.user_ratings_total}} Reviews</span></div>
                         <div><b>Address:</b> {{fav.place.formatted_address}}</div>
@@ -93,6 +104,7 @@
                         <div><b>Website:</b> <a href="{{fav.place.website}}">{{fav.place.website}}</a></div>
                         <div style="margin-top:20px;float:right">
                             <a ng-if="bFromAdd==1" ng-click="fgo_add('/add-activity/', fav.place.place_id)" class="btn btn-success">Add to Itinerary</a>
+                            <a ng-click="show_modify_favorite(fav)" class="btn btn-danger">Modify</a>
                             <a ng-click="remove_favorite(fav._id)" class="btn btn-danger">Remove</a>
                         </div>
                         <!--
@@ -124,6 +136,7 @@
 <script>
 var map;
 var sel_place = null;
+var sel_place1 = null;
 
 function initialize() {
   // Create a map centered in Pyrmont, Sydney (Australia).
@@ -133,7 +146,6 @@ function initialize() {
   });
 
   var input = (document.getElementById('txt_place'));
-
   var autocomplete = new google.maps.places.Autocomplete(input);
   autocomplete.bindTo('bounds', map);
 
@@ -181,6 +193,55 @@ function initialize() {
       });
     
     });
+
+      var input1 = (document.getElementById('txt_place1'));
+      var autocomplete1 = new google.maps.places.Autocomplete(input1);
+      autocomplete1.bindTo('bounds', map);
+
+      google.maps.event.addListener(autocomplete1, 'place_changed', function() {
+
+        var rquery = document.getElementById("txt_place1").value;
+
+         if(rquery == undefined || rquery == "")
+            rquery = 'Denver';
+
+         var request = {
+            location: map.getCenter(),
+            radius: '500',
+            query: rquery
+          };
+          var service = new google.maps.places.PlacesService(map);
+          service.textSearch(request, function(results, status) {
+            if (status == google.maps.places.PlacesServiceStatus.OK) {
+
+                var marker = new google.maps.Marker({
+                  map: map,
+                  place: {
+                    placeId: results[0].place_id,
+                    location: results[0].geometry.location
+                  }
+                });
+
+                var request1 = {
+                    placeId: results[0].place_id
+                  };
+
+                  var service1 = new google.maps.places.PlacesService(map);
+
+                  service1.getDetails(request1, function(place, status) {
+                    if (status == google.maps.places.PlacesServiceStatus.OK) {
+
+                        map.setCenter(new google.maps.LatLng(place.geometry.location.A, place.geometry.location.F));
+
+                        sel_place1 = place;
+                    }
+                  });
+                
+            }
+
+          });
+        
+        });
 }
 google.maps.event.addDomListener(window, 'load', initialize);
 </script>

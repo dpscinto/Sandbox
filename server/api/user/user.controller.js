@@ -8,25 +8,12 @@ var nodemailer = require('nodemailer');
 var fs = require('fs');
 var mandrill = require('mandrill-api/mandrill');
 var mandrill_client = new mandrill.Mandrill('m1Hmo_q9hMt7fYiAsMrxJA');
-/*
-var transporter = nodemailer.createTransport({
-    service: 'Gmail',
-    auth: {
-        user: 'craig@itsthejrny.com',
-        pass: ''
-    }
-});
-*/
 
 
 var validationError = function (res, err) {
     return res.json(422, err);
 };
 
-/**
- * Get list of users
- * restriction: 'admin'
- */
 exports.index = function (req, res) {
     User.find({}, '-salt -hashedPassword', function (err, users) {
         if (err) return res.send(500, err);
@@ -56,10 +43,10 @@ exports.create = function (req, res, next) {
         /***** MANDRILL EMAIL ****/
         /***** MANDRILL Vars ****/
         /*if (user.local.active == true) {
-    var template_name = "Blah";
-} else {
-    var template_name = "welcome";
-}*/
+            var template_name = "Blah";
+        } else {
+            var template_name = "welcome";
+        }*/
         var template_name = "welcome";
         var template_content = [{
             "name": "Jrny Signup",

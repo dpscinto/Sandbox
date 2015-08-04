@@ -17,6 +17,9 @@ angular.module('jrnyApp')
 
 	$scope.m_cat = "";
 	$scope.m_rev = "";
+	$scope.m_curid = "";
+
+	$scope.m_ismodify = false;
 
 	$scope.m_favorites = [];
 
@@ -33,7 +36,7 @@ angular.module('jrnyApp')
 	
 
 	$scope.setPlace = function() {
-	
+
     	$scope.m_name = sel_place.name;
     	$scope.m_phone = sel_place.formatted_phone_number;
     	$scope.m_website = sel_place.website;
@@ -41,6 +44,16 @@ angular.module('jrnyApp')
     	//alert(JSON.stringify(sel_place));
     	$scope.add_favorite();
     	//document.getElementById("abc").innerHTML = JSON.stringify(place);	
+	};
+
+	$scope.setPlace1 = function() {
+		if(sel_place1 != null) {
+	    	$scope.m_name = sel_place1.name;
+	    	$scope.m_phone = sel_place1.formatted_phone_number;
+	    	$scope.m_website = sel_place1.website;
+	    	$scope.m_location = sel_place1.formatted_address;
+	    	$scope.modify_favorite();
+	    }
 	};
 
 	$scope.fgo_add = function(url, pid) {
@@ -52,6 +65,7 @@ angular.module('jrnyApp')
 		var cat = document.getElementById("txt_cat").value;
 		$http.get('/api/favorite/get_favorite/' + $scope.getCurrentUser()._id).
 	      success(function(data, status, headers, config) {
+	      	if(data.result != "none") {
 	      		$scope.m_favorites = [];
 	      		data.forEach(function(fav) {
 	      			var flg = 0;
@@ -63,14 +77,22 @@ angular.module('jrnyApp')
 	      			}
 	      			if((rev == "" || parseInt(rev) <= fav.place.rating) && (cat == "" || flg == 1))
 	      			{
-		      			var pnt = fav.place.opening_hours.weekday_text[0].indexOf(":");	      			
-		      			fav.place.opening_hours.weekday_text[0] = fav.place.opening_hours.weekday_text[0].substr(pnt + 2, fav.place.opening_hours.weekday_text[0].length - pnt - 2);
+	      				if(fav.place.opening_hours != null) {
+			      			var pnt = fav.place.opening_hours.weekday_text[0].indexOf(":");	      			
+			      			fav.place.opening_hours.weekday_text[0] = fav.place.opening_hours.weekday_text[0].substr(pnt + 2, fav.place.opening_hours.weekday_text[0].length - pnt - 2);
+		      			}
 		      			$scope.m_favorites.push(fav);
 		      		}
 	      		});
+	      	} 
 	      }).
 	      error(function(data, status, headers, config) {
 	      });
+	};
+
+	$scope.show_modify_favorite = function(fav) {
+		$scope.m_ismodify = true;
+		$scope.m_curid = fav._id;
 	};
 
 	$scope.remove_favorite = function(idx) {
@@ -115,6 +137,15 @@ angular.module('jrnyApp')
 	      });
 	};
 
+	$scope.modify_favorite = function() {
+		$http.post('/api/favorite/modify_favorite', {nm: $scope.m_name, ca: $scope.m_category, lo: $scope.m_location, ph: $scope.m_phone, we: $scope.m_website, uid: $scope.getCurrentUser()._id, place: sel_place1, fid: $scope.m_curid}).
+	      success(function(data, status, headers, config) { 
+	      	$scope.get_favorite();
+	      }).
+	      error(function(data, status, headers, config) {
+	      });
+	};
+
 	angular.element(document).ready(function () {
 		if($stateParams.category != "") {
 			if($stateParams.category[0] == "_") {
@@ -124,7 +155,14 @@ angular.module('jrnyApp')
 			else
 				$scope.m_category = $stateParams.category;
 		}
-		$scope.get_favorite();
+		
+
+		$scope.$watch(function(scope){return scope.getCurrentUser()._id}, function(){
+	      if($scope.getCurrentUser()._id!=undefined){
+	       $scope.get_favorite();
+	      }
+	    })
+
     });
 
 	

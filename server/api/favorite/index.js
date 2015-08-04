@@ -13,6 +13,7 @@ router.get('/get_favorite/:uid', controller.get_favorite);
 router.get('/remove_favorite/:id', controller.remove_favorite);
 
 router.post('/add_favorite', controller.add_favorite);
+router.post('/modify_favorite', controller.modify_favorite);
 router.post('/edit_favorite', controller.edit_favorite);
 
 

@@ -17,6 +17,10 @@ angular.module('jrnyApp')
 	var month_name = new Array("January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December");
 
 
+	$scope.go_fav = function() {
+		location.href = "/favorite/Restaurant/1/1";
+	};
+
 	$scope.get_builder = function(status) {
 		$http.post('/api/traveler_survey/get_builder', {id: $scope.getCurrentUser()._id, status: status}).
 	      success(function(data, status, headers, config) { 

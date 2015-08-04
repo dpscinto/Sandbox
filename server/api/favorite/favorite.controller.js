@@ -84,6 +84,32 @@ exports.add_favorite = function (req, res, next) {
     });    
 };
 
+exports.modify_favorite = function (req, res, next) {    
+
+    var fid = req.body.fid;
+    Favorite.find({_id: fid}, function (err, acts) {
+      if (err) {
+        console.log(err);
+      } else if (acts.length) {
+
+        var new_fav = acts[0];
+        new_fav.category = req.body.ca;
+        new_fav.location = req.body.lo;
+        new_fav.phone = req.body.ph;
+        new_fav.website = req.body.we;
+        new_fav.uid = req.body.uid;
+        new_fav.place = req.body.place;
+
+        new_fav.save(function (err, ts) { 
+            res.json(ts);
+        });    
+
+      } else {
+        res.json({result:'none'});
+      }
+    });   
+};
+
 /**
  * Authentication callback
  */
